@@ -1,0 +1,95 @@
+
+/* ============================================
+   Awards.css
+   ============================================ */
+
+.awards {
+  background-color: #000000;
+  color: #ffffff;
+  padding: 5rem 1.5rem;
+}
+
+.awards-container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.awards-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.awards-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #FDB913;
+  margin-bottom: 1rem;
+}
+
+.awards-subtitle {
+  color: #9ca3af;
+}
+
+.awards-carousel {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.awards-carousel-btn {
+  background-color: #1a1a1a;
+  padding: 0.75rem;
+  border-radius: 50%;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.awards-carousel-btn:hover {
+  background-color: #2a2a2a;
+  transform: scale(1.1);
+}
+
+.awards-track {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 1rem 0;
+}
+
+.awards-track::-webkit-scrollbar {
+  display: none;
+}
+
+.award-card {
+  flex-shrink: 0;
+  width: 192px;
+  height: 256px;
+  background-color: #1a1a1a;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 4px solid #2a2a2a;
+  transition: all 0.3s ease;
+}
+
+.award-card:hover {
+  border-color: #FDB913;
+  transform: scale(1.05);
+}
+
+.award-icon {
+  color: #FDB913;
+}
+
+@media (min-width: 1024px) {
+  .awards-title {
+    font-size: 3rem;
+  }
+}

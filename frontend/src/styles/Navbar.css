@@ -1,0 +1,140 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #000000;
+  color: #ffffff;
+  z-index: 1000;
+  border-bottom: 1px solid #1f1f1f;
+  transition: all 0.3s ease;
+}
+
+.navbar.scrolled {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(10px);
+}
+
+.navbar-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1rem 1.5rem;
+}
+
+.navbar-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.navbar-logo-icon {
+  width: 40px;
+  height: 40px;
+  background-color: #FDB913;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #000000;
+  font-size: 1rem;
+}
+
+.navbar-logo-text {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.navbar-menu {
+  display: none;
+  align-items: center;
+  gap: 2rem;
+}
+
+.navbar-menu a {
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.navbar-menu a:hover {
+  color: #FDB913;
+}
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.navbar-search-btn,
+.navbar-mobile-toggle {
+  background: none;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  padding: 0.5rem;
+}
+
+.navbar-search-btn:hover,
+.navbar-mobile-toggle:hover {
+  color: #FDB913;
+}
+
+.navbar-search-input {
+  width: 100%;
+  background-color: #1a1a1a;
+  color: #ffffff;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #333;
+  outline: none;
+  margin-top: 1rem;
+}
+
+.navbar-search-input:focus {
+  border-color: #FDB913;
+  box-shadow: 0 0 0 2px rgba(253, 185, 19, 0.2);
+}
+
+.navbar-mobile-menu {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.navbar-mobile-menu a {
+  color: #ffffff;
+  text-decoration: none;
+  padding: 0.5rem 0;
+  transition: color 0.3s ease;
+}
+
+.navbar-mobile-menu a:hover {
+  color: #FDB913;
+}
+
+@media (min-width: 1024px) {
+  .navbar-menu {
+    display: flex;
+  }
+  
+  .navbar-mobile-toggle {
+    display: none;
+  }
+}
+

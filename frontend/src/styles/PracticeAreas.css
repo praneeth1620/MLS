@@ -1,0 +1,84 @@
+
+/* ============================================
+   PracticeAreas.css
+   ============================================ */
+
+.practice-areas {
+  background-color: #1a1a1a;
+  color: #ffffff;
+  padding: 5rem 1.5rem;
+}
+
+.practice-areas-container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.practice-areas-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.practice-areas-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #FDB913;
+  margin-bottom: 1rem;
+}
+
+.practice-areas-subtitle {
+  color: #9ca3af;
+  font-size: 1.125rem;
+}
+
+.practice-areas-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.practice-card {
+  background-color: #000000;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  border: 1px solid #333;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.practice-card:hover {
+  border-color: #FDB913;
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(253, 185, 19, 0.1);
+}
+
+.practice-card-icon {
+  color: #FDB913;
+  margin-bottom: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.practice-card:hover .practice-card-icon {
+  transform: scale(1.1);
+}
+
+.practice-card-title {
+  font-weight: 600;
+  font-size: 1.125rem;
+}
+
+@media (min-width: 640px) {
+  .practice-areas-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .practice-areas-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  .practice-areas-title {
+    font-size: 3rem;
+  }
+}

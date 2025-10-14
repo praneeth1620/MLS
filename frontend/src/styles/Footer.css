@@ -1,0 +1,113 @@
+
+/* ============================================
+   Footer.css
+   ============================================ */
+
+.footer {
+  background-color: #FDB913;
+  color: #000000;
+  padding: 3rem 1.5rem;
+}
+
+.footer-container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.footer-section h3 {
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.footer-section h4 {
+  font-weight: bold;
+  font-size: 1.125rem;
+  margin-bottom: 1rem;
+}
+
+.footer-section p {
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.footer-social {
+  display: flex;
+  gap: 1rem;
+}
+
+.footer-social-icon {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.footer-social-icon:hover {
+  transform: scale(1.15);
+}
+
+.footer-links {
+  list-style: none;
+}
+
+.footer-links li {
+  margin-bottom: 0.5rem;
+}
+
+.footer-links a {
+  color: #000000;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+  padding-left: 0.25rem;
+}
+
+.footer-contact {
+  border-top: 1px solid #000000;
+  padding-top: 2rem;
+  margin-top: 2rem;
+}
+
+.footer-contact h4 {
+  font-weight: bold;
+  font-size: 1.125rem;
+  margin-bottom: 1rem;
+}
+
+.footer-contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.footer-contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.footer-contact-icon {
+  flex-shrink: 0;
+  margin-top: 0.25rem;
+}
+
+@media (min-width: 768px) {
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .footer-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
