@@ -36,6 +36,7 @@
 .hero-title {
   font-size: 3rem;
   font-weight: bold;
+  text-shadow: 2px 2px 5px #f5b001;
   margin-bottom: 1.5rem;
   line-height: 1.2;
   animation: fadeInUp 1s ease-out;
