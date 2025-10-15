@@ -5,6 +5,7 @@ import About from './components/About';
 import PracticeAreas from './components/PracticeAreas';
 import Awards from './components/Awards';
 import Testimonials from './components/Testimonials';
+import ContactForm from './components/ContactForm';
 import Footer from './components/Footer';
 import './App.css';
 
@@ -17,6 +18,7 @@ function App() {
       <PracticeAreas />
       <Awards />
       <Testimonials />
+      <ContactForm />
       <Footer />
     </div>
   );
