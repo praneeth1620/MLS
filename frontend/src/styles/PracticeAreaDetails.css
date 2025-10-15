@@ -1,0 +1,20 @@
+.details-container {
+  max-width: 800px;
+  margin: 60px auto;
+  background: var(--card);
+  color: var(--text);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+}
+
+.details-container button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  border: none;
+  background: var(--accent);
+  color: #000;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+}
