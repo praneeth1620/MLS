@@ -1,10 +1,9 @@
-
 /* ============================================
    About.css (Content.css)
    ============================================ */
 
 .about {
-  background-color: #000000;
+  background-color: #1a1a1a;
   color: #ffffff;
   padding: 5rem 1.5rem;
 }
@@ -15,13 +14,41 @@
   display: grid;
   gap: 3rem;
   align-items: center;
+  overflow: hidden; /* Prevent animation overflow */
 }
 
+/* ===== INITIAL HIDDEN STATE ===== */
+.about-text,
+.about-image {
+  transition: all 1s ease;
+  opacity: 0;
+}
+
+.about-text {
+  transform: translateX(-100px);
+}
+
+.about-image {
+  transform: translateX(100px);
+}
+
+/* ===== ACTIVE (VISIBLE) STATE ===== */
+.about-container.active .about-text {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.about-container.active .about-image {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* ===== TEXT STYLING ===== */
 .about-text h2 {
   font-size: 2.5rem;
   font-weight: bold;
   margin-bottom: 1.5rem;
-  color: #FDB913;
+  color: #fdb913;
 }
 
 .about-text p {
@@ -31,8 +58,9 @@
   line-height: 1.8;
 }
 
+/* ===== LINK STYLING ===== */
 .about-link {
-  color: #FDB913;
+  color: #fdb913;
   font-weight: 600;
   font-size: 1.125rem;
   text-decoration: none;
@@ -47,10 +75,7 @@
   gap: 0.75rem;
 }
 
-.about-image {
-  position: relative;
-}
-
+/* ===== IMAGE STYLING ===== */
 .about-image img {
   border-radius: 0.5rem;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
@@ -59,11 +84,12 @@
   object-fit: cover;
 }
 
+/* ===== RESPONSIVE DESIGN ===== */
 @media (min-width: 768px) {
   .about-container {
     grid-template-columns: 1fr 1fr;
   }
-  
+
   .about-text h2 {
     font-size: 3rem;
   }
