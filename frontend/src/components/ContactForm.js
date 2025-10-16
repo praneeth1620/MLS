@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
+import axios from "axios";
 import '../styles/ContactForm.css';
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
     fullName: '',
-    contactName: '',
     email: '',
     phone: '',
     disputeType: '',
@@ -17,21 +17,38 @@ const ContactForm = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // For now, just log. Hook up to backend/API later.
-    console.log('Contact form submitted:', formData);
-    alert('Thank you! We will get back to you soon.');
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  // Prepare data to match backend keys
+  const postData = {
+    name: formData.fullName,
+    phone: formData.phone,
+    email: formData.email,
+    query: formData.query,
+    dispute: formData.disputeType,
+    freetime: formData.flexibleHours
+  };
+
+  try {
+    const res = await axios.post('http://localhost:5000/form', postData);
+    console.log(res.data);
+    alert(res.data.message);
+
+    // Reset form
     setFormData({
       fullName: '',
-      contactName: '',
       email: '',
       phone: '',
       disputeType: '',
       flexibleHours: '',
       query: ''
     });
-  };
+  } catch (err) {
+    console.error(err);
+    alert('Error submitting form. Please try again.');
+  }
+};
 
   return (
     <section className="contact-form">
@@ -43,14 +60,10 @@ const ContactForm = () => {
             <input id="fullName" name="fullName" type="text" value={formData.fullName} onChange={handleChange} required />
           </div>
           <div className="form-field">
-            <label htmlFor="contactName">Contact Name</label>
-            <input id="contactName" name="contactName" type="text" value={formData.contactName} onChange={handleChange} required />
-          </div>
-          <div className="form-field">
             <label htmlFor="phone">Phone</label>
             <input id="phone" name="phone" type="tel" value={formData.phone} onChange={handleChange} required />
           </div>
-          <div className="form-field">
+          <div className="form-field full">
             <label htmlFor="email">Email (optional)</label>
             <input id="email" name="email" type="email" value={formData.email} onChange={handleChange} placeholder="name@example.com" />
           </div>

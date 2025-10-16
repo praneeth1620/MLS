@@ -80,6 +80,8 @@
   filter: brightness(0.95);
 }
 
+
+
 @media (max-width: 1024px) {
   .contact-form-container {
     max-width: 640px;
@@ -114,5 +116,4 @@
     grid-template-columns: 1fr;
   }
 }
-
 
