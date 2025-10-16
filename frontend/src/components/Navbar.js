@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronDown, Search, Menu, X } from 'lucide-react';
+import logo from '../file.svg'
 import '../styles/Navbar.css';
 
 const Navbar = () => {
@@ -11,8 +12,7 @@ const Navbar = () => {
       <div className="navbar-container">
         <div className="navbar-content">
           <a href="#home" className="navbar-logo">
-            <div className="navbar-logo-icon">MS</div>
-            <span className="navbar-logo-text">MLS&Co</span>
+            <img src={logo} className='logo' alt='logo'/>
           </a>
 
           <div className="navbar-menu">
