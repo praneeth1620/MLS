@@ -9,7 +9,7 @@ const Awards = () => {
     <section className="awards">
       <div className="awards-container">
         <div className="awards-header">
-          <h2 className="awards-title">Awards & Accolades</h2>
+          <h2 className="awards-title">Academics</h2>
           <p className="awards-subtitle">
             Recognized for excellence by leading legal publications.
           </p>

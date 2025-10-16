@@ -39,7 +39,7 @@ const Testimonials = () => {
   return (
     <section className="testimonials">
       <div className="testimonials-container">
-        <h2 className="testimonials-title">What Our Clients Say</h2>
+        <h2 className="testimonials-title">Testimonials</h2>
         <div className="testimonials-marquee">
           <div className="testimonials-track">
             {[...testimonials, ...testimonials].map((t, idx) => (
