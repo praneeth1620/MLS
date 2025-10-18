@@ -1,0 +1,80 @@
+.publications-container {
+  min-height: 100vh;
+  padding-top: 130px;
+  padding: 130px 2rem 4rem;
+  background-color: #000000;
+  color: #ffffff;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.publications-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.publications-header h1 {
+  font-size: 2.8rem;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+.publications-header p {
+  font-size: 1.2rem;
+  color: #aaaaaa;
+}
+
+.publications-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.publication-card {
+  background-color: #111111;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.publication-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.25);
+}
+
+.publication-card h2 {
+  font-size: 1.5rem;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+.publication-card p {
+  font-size: 1rem;
+  color: #aaaaaa;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.read-more {
+  background-color: gold;
+  color: black;
+  font-weight: 600;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.read-more:hover {
+  background-color: #ffd700;
+  transform: scale(1.05);
+}
+.back-button-container {
+  display: flex;
+  justify-content: center; /* center horizontally */
+  margin-top: 2rem;       /* space from form */
+  margin-bottom: 2rem;    /* space at the bottom of page */
+}

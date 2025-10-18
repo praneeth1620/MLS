@@ -4,12 +4,11 @@ import '../styles/Awards.css';
 
 const Awards = () => {
   const awards = [1, 2, 3, 4, 5];
-
   return (
-    <section className="awards">
+    <section className={`awards`}>
       <div className="awards-container">
         <div className="awards-header">
-          <h2 className="awards-title">Academics</h2>
+          <h2 className="awards-title">Academic Collaborations</h2>
           <p className="awards-subtitle">
             Recognized for excellence by leading legal publications.
           </p>
