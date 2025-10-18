@@ -8,6 +8,8 @@
   padding: 5rem 1.5rem;
 }
 
+/* removed global theme overrides for contact form */
+
 .contact-form-container {
   max-width: 800px;
   margin: 0 auto;
@@ -67,6 +69,7 @@
 }
 
 .submit-btn {
+  width: 10px;
   background-color: #FDB913;
   color: #000000;
   border: none;

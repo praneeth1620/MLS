@@ -3,6 +3,7 @@ import axios from "axios";
 import '../styles/ContactForm.css';
 
 const ContactForm = () => {
+  const [isLight, setIsLight] = useState(false);
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -51,7 +52,7 @@ const ContactForm = () => {
 };
 
   return (
-    <section className="contact-form">
+    <section className={`contact-form`} id='contact'>
       <div className="contact-form-container">
         <h2 className="contact-form-title">Get in Touch</h2>
         <form className="contact-form-grid" onSubmit={handleSubmit}>
@@ -97,5 +98,3 @@ const ContactForm = () => {
 };
 
 export default ContactForm;
-
-
