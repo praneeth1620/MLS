@@ -14,10 +14,17 @@ const Careers = () => {
     college: "",
     course: "",
     yearOfStudy: "",
-    coverLetter: ""
+    coverLetter: "",
+    disputeType: "",
+    cgpa: "",
+    preferredMode: "",
   });
 
   const [cvFile, setCvFile] = useState(null);
+  const [researchSample, setResearchSample] = useState(null);
+  const [marksSheet, setMarksSheet] = useState(null);
+  const [draftSample, setDraftSample] = useState(null);
+
   const [fileName, setFileName] = useState("No file chosen");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
@@ -49,9 +56,14 @@ const Careers = () => {
     Object.entries(formData).forEach(([key, value]) => data.append(key, value));
     data.append("cv", cvFile);
 
+    // Append extra files if they exist
+    if (researchSample) data.append("researchSample", researchSample);
+    if (marksSheet) data.append("marksSheet", marksSheet);
+    if (draftSample) data.append("draftSample", draftSample);
+
     try {
       const res = await axios.post("http://localhost:5000/career", data, {
-        headers: { "Content-Type": "multipart/form-data" }
+        headers: { "Content-Type": "multipart/form-data" },
       });
 
       console.log(res.data);
@@ -66,9 +78,15 @@ const Careers = () => {
         college: "",
         course: "",
         yearOfStudy: "",
-        coverLetter: ""
+        coverLetter: "",
+        disputeType: "",
+        cgpa: "",
+        preferredMode: "",
       });
       setCvFile(null);
+      setResearchSample(null);
+      setMarksSheet(null);
+      setDraftSample(null);
       setFileName("No file chosen");
     } catch (err) {
       console.error(err);
@@ -81,9 +99,9 @@ const Careers = () => {
   return (
     <div className="internship-container">
       <div className="form-wrapper">
-        <h1 className="form-title">Internship Application</h1>
+        <h1 className="form-title">Career Application</h1>
         <p className="form-subtitle">
-          We are looking for talented and motivated students to join our team.
+          We are looking forward to have talented and motivated students and graduates join our team.
         </p>
 
         <form onSubmit={handleSubmit} className="application-form">
@@ -93,22 +111,50 @@ const Careers = () => {
             <div className="form-row">
               <div className="form-group">
                 <label>Full Name</label>
-                <input type="text" name="fullName" value={formData.fullName} onChange={handleChange} required />
+                <input
+                  type="text"
+                  name="fullName"
+                  value={formData.fullName}
+                  onChange={handleChange}
+                  placeholder="Enter your full name"
+                  required
+                />
               </div>
               <div className="form-group">
                 <label>Email</label>
-                <input type="email" name="email" value={formData.email} onChange={handleChange} required />
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="example@email.com"
+                  required
+                />
               </div>
             </div>
 
             <div className="form-row">
               <div className="form-group">
                 <label>Phone Number</label>
-                <input type="tel" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} required />
+                <input
+                  type="tel"
+                  name="phoneNumber"
+                  value={formData.phoneNumber}
+                  onChange={handleChange}
+                  placeholder="Enter your phone number"
+                  required
+                />
               </div>
               <div className="form-group">
                 <label>Residential Address</label>
-                <input type="text" name="residentialAddress" value={formData.residentialAddress} onChange={handleChange} required />
+                <input
+                  type="text"
+                  name="residentialAddress"
+                  value={formData.residentialAddress}
+                  onChange={handleChange}
+                  placeholder="Enter your address"
+                  required
+                />
               </div>
             </div>
           </div>
@@ -119,19 +165,138 @@ const Careers = () => {
             <div className="form-row">
               <div className="form-group">
                 <label>College/University</label>
-                <input type="text" name="college" value={formData.college} onChange={handleChange} required />
+                <input
+                  type="text"
+                  name="college"
+                  value={formData.college}
+                  onChange={handleChange}
+                  placeholder="Enter your college or university name"
+                  required
+                />
               </div>
               <div className="form-group">
                 <label>Course</label>
-                <input type="text" name="course" value={formData.course} onChange={handleChange} required />
+                <input
+                  type="text"
+                  name="course"
+                  value={formData.course}
+                  onChange={handleChange}
+                  placeholder="Enter your course name"
+                  required
+                />
               </div>
             </div>
             <div className="form-row">
               <div className="form-group">
                 <label>Year of Study</label>
-                <input type="text" name="yearOfStudy" value={formData.yearOfStudy} onChange={handleChange} required />
+                <input
+                  type="text"
+                  name="yearOfStudy"
+                  value={formData.yearOfStudy}
+                  onChange={handleChange}
+                  placeholder="e.g. Final Year"
+                  required
+                />
               </div>
             </div>
+          </div>
+
+          {/* Nature of Application */}
+          <div className="form-section">
+            <h2 className="section-title">Nature of Application</h2>
+            <div className="form-field">
+              <label htmlFor="disputeType">Applying for</label>
+              <select
+                id="disputeType"
+                name="disputeType"
+                value={formData.disputeType}
+                onChange={handleChange}
+                required
+              >
+                <option value="" disabled hidden>
+                  Select type
+                </option>
+                <option value="Internship-short">Short Internship</option>
+                <option value="Internship-long">Long Internship</option>
+                <option value="Research-Internship">Research Internship</option>
+                <option value="Assessment Internship">Assessment Internship</option>
+                <option value="Associate openings">Associate openings</option>
+              </select>
+            </div>
+
+            {/* Mode of Internship */}
+            <div className="form-field">
+              <label htmlFor="preferredMode">Preferred Mode</label>
+              <select
+                id="preferredMode"
+                name="preferredMode"
+                value={formData.preferredMode}
+                onChange={handleChange}
+                required
+              >
+                <option value="" disabled hidden>
+                  Select mode
+                </option>
+                <option value="Offline Mode">Offline Mode</option>
+                <option value="Online Mode">Online Mode</option>
+                <option value="Hybrid Mode">Hybrid Mode</option>
+              </select>
+            </div>
+
+            {/* Conditional Fields */}
+            {formData.disputeType === "Assessment Internship" && (
+              <>
+                <p style={{ color: "red" }}>Only applicable to final year students</p>
+                <div className="form-group">
+                  <label>CGPA</label>
+                  <input
+                    type="text"
+                    name="cgpa"
+                    value={formData.cgpa}
+                    onChange={handleChange}
+                    placeholder="Enter your CGPA"
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Research Sample</label>
+                  <input
+                    type="file"
+                    onChange={(e) => setResearchSample(e.target.files[0])}
+                    required
+                  />
+                </div>
+              </>
+            )}
+
+            {formData.disputeType === "Associate openings" && (
+              <>
+                <div className="form-group">
+                  <label>Marks Sheet Upload</label>
+                  <input
+                    type="file"
+                    onChange={(e) => setMarksSheet(e.target.files[0])}
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Draft Sample</label>
+                  <input
+                    type="file"
+                    onChange={(e) => setDraftSample(e.target.files[0])}
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Research Sample</label>
+                  <input
+                    type="file"
+                    onChange={(e) => setResearchSample(e.target.files[0])}
+                    required
+                  />
+                </div>
+              </>
+            )}
           </div>
 
           {/* Documents */}
@@ -146,11 +311,21 @@ const Careers = () => {
             </div>
             <div className="form-group">
               <label>Cover Letter (Optional)</label>
-              <textarea name="coverLetter" value={formData.coverLetter} onChange={handleChange} rows="6" />
+              <textarea
+                name="coverLetter"
+                value={formData.coverLetter}
+                onChange={handleChange}
+                placeholder="Write your cover letter here..."
+                rows="6"
+              />
             </div>
           </div>
 
-          {message && <div className={`message ${message.includes("success") ? "success" : "error"}`}>{message}</div>}
+          {message && (
+            <div className={`message ${message.includes("success") ? "success" : "error"}`}>
+              {message}
+            </div>
+          )}
 
           <button type="submit" className="submit-btn" disabled={loading}>
             {loading ? "Submitting..." : "Submit Application"}
@@ -158,7 +333,7 @@ const Careers = () => {
         </form>
       </div>
 
-      {/* Back button at bottom-right */}
+      {/* Back button */}
       <div className="back-button-container">
         <button type="button" className="back-btn" onClick={() => navigate("/")}>
           &larr; Back

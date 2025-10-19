@@ -34,7 +34,7 @@ const Hero = ({ theme }) => {
     <section className={`hero ${theme}`} id='home'>
       <div className="hero-content">
         <h1 className="hero-title">
-          Men Legum Sanctitas
+          MEN LEGATUM SANCTITAS
         </h1>
         <p className="hero-subtitle">
           Driven by the Spirit of Justice, Guided by the Sanctity of Law

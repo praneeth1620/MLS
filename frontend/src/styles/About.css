@@ -107,3 +107,25 @@
     font-size: 3rem;
   }
 } 
+
+.about-btn {
+  background-color: transparent;       /* Matches section background */
+  color: #fdb913;                      /* Accent color */
+  border: 2px solid #fdb913;           /* Accent border */
+  border-radius: 6px;                   /* Rounded corners */
+  padding: 0.6rem 1.2rem;              /* Button padding */
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-block;
+  text-align: center;
+}
+
+/* Hover effect */
+.about-btn:hover {
+  background-color: #fdb913;           /* Fill button on hover */
+  color: #1a1a1a;                      /* Change text color */
+  transform: translateY(-2px);         /* Slight lift */
+  box-shadow: 0 4px 12px rgba(253, 185, 19, 0.4); /* Glow effect */
+}

@@ -1,119 +1,133 @@
 // const express = require("express");
 // const mongoose = require("mongoose");
 // const cors = require("cors");
+// const multer = require("multer");
 // const path = require("path");
 
-// // Models
-// const Form = require("./models/Form"); 
-// const Application = require("./models/Application"); 
+// const Form = require("./models/Form"); // old form
+// const Application = require("./models/Application"); // careers form
 
-// // Multer for file uploads
-// const multer = require("multer");
-
-// // Express app
 // const app = express();
 // app.use(cors());
 // app.use(express.json());
-
-// // Serve uploaded CVs
 // app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+// // ----------------------
+// // MONGODB CONNECTIONS
+// // ----------------------
+// const mongoURLForm = "mongodb+srv://praneethkollipara7:Issues@clientissues.fr33uzy.mongodb.net/";
+// const mongoURLCareer = "mongodb+srv://praneethkollipara7:Internships@internsapplied.uuokqhr.mongodb.net/";
 
-// /* ----------------- MONGODB CONNECTIONS ----------------- */
-
-// // Cluster 1: Existing form database
-// const cluster1URL = "mongodb+srv://praneethkollipara7:Issues@clientissues.fr33uzy.mongodb.net/myDatabase?retryWrites=true&w=majority" ;
-// const cluster1Connection = mongoose.createConnection(cluster1URL, {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true
+// // Old Form DB
+// const formConnection = mongoose.createConnection(mongoURLForm, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
 // });
+// const FormModel = formConnection.model("Form", Form.schema);
 
-// cluster1Connection.once("open", () => console.log("Connected to Cluster 1 (Form DB)"));
-// cluster1Connection.on("error", (err) => console.log("Cluster 1 error:", err));
-
-// // Cluster 2: Dummy second cluster for Applications
-// const cluster2URL = "mongodb+srv://praneethkollipara7:Interns@internsapplied.uuokqhr.mongodb.net/myDatabase?retryWrites=true&w=majority";
-// const cluster2Connection = mongoose.createConnection(cluster2URL, {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true
+// // Careers Form DB
+// const careerConnection = mongoose.createConnection(mongoURLCareer, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
 // });
+// const ApplicationModel = careerConnection.model("Application", Application.schema);
 
-// cluster2Connection.once("open", () => console.log("Connected to Cluster 2 (Applications DB)"));
-// cluster2Connection.on("error", (err) => console.log("Cluster 2 error:", err));
-
-// /* ----------------- EXISTING /form API ----------------- */
-// const FormModel = cluster1Connection.model("Form", Form.schema);
-
-// app.post("/form", async (request, response) => {
-//     try {
-//         const { name, phone, email, query, dispute, freetime } = request.body;
-//         const time = new Date();
-
-//         const newForm = new FormModel({
-//             name,
-//             phone,
-//             email,
-//             query,
-//             dispute,
-//             freetime,
-//             time
-//         });
-
-//         const savedForm = await newForm.save();
-//         console.log("new form: ", savedForm);
-//         response.status(201).json({ message: "Form submitted successfully", data: savedForm });
-//     } catch (err) {
-//         console.error(err);
-//         response.status(500).json({ message: "Server error", error: err.message });
-//     }
-// });
-
-// /* ----------------- NEW /career API ----------------- */
-// const ApplicationModel = cluster2Connection.model("Application", Application.schema);
-
-// // Configure multer to store uploaded CVs
+// // ----------------------
+// // MULTER CONFIG
+// // ----------------------
 // const storage = multer.diskStorage({
-//     destination: function (req, file, cb) {
-//         cb(null, "uploads/");
-//     },
-//     filename: function (req, file, cb) {
-//         const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-//         cb(null, uniqueSuffix + path.extname(file.originalname));
-//     }
+//   destination: (req, file, cb) => cb(null, "internships/"),
+//   filename: (req, file, cb) => {
+//     cb(null,path.extname(file.originalname));
+//   },
 // });
 // const upload = multer({ storage });
 
-// app.post("/career", upload.single("cv"), async (req, res) => {
-//     try {
-//         const { fullName, email, phoneNumber, residentialAddress, college, course, yearOfStudy, coverLetter } = req.body;
-//         const time = new Date();
+// // ----------------------
+// // ROUTE 1: Old Form
+// // ----------------------
+// app.post("/form", async (req, res) => {
+//   try {
+//     const { name, phone, email, query, dispute, freetime } = req.body;
+//     const time = new Date();
 
-//         if (!req.file) {
-//             return res.status(400).json({ message: "CV file is required" });
-//         }
+//     const newForm = new FormModel({ name, phone, email, query, dispute, freetime, time });
+//     const savedForm = await newForm.save();
 
-//         const newApplication = new ApplicationModel({
-//             fullName,
-//             email,
-//             phoneNumber,
-//             residentialAddress,
-//             college,
-//             course,
-//             yearOfStudy,
-//             coverLetter,
-//             cvUrl: `/uploads/${req.file.filename}`,
-//             time,
-//         });
-
-//         const savedApplication = await newApplication.save();
-//         res.status(201).json({ message: "Application submitted successfully", data: savedApplication });
-//     } catch (error) {
-//         console.error(error);
-//         res.status(500).json({ message: "Error submitting application", error: error.message });
-//     }
+//     console.log("New form:", savedForm);
+//     res.status(201).json({ message: "Form submitted successfully", data: savedForm });
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ message: "Server error", error: err.message });
+//   }
 // });
 
-// /* ----------------- START SERVER ----------------- */
-// app.listen(5000, () => console.log("Server is running on port 5000"));
+// // ----------------------
+// // ROUTE 2: Careers Form
+// // ----------------------
+// const cpUpload = upload.fields([
+//   { name: "cv", maxCount: 1 },
+//   { name: "researchSample", maxCount: 1 },
+//   { name: "marksSheet", maxCount: 1 },
+//   { name: "draftSample", maxCount: 1 },
+// ]);
+
+// app.post("/career", cpUpload, async (req, res) => {
+//   try {
+//     const body = req.body;
+//     const files = req.files;
+
+//     const newApplication = new ApplicationModel({
+//       fullName: body.fullName,
+//       email: body.email,
+//       phoneNumber: body.phoneNumber,
+//       residentialAddress: body.residentialAddress,
+//       college: body.college,
+//       course: body.course,
+//       yearOfStudy: body.yearOfStudy,
+//       coverLetter: body.coverLetter,
+//       disputeType: body.disputeType,
+//       preferredMode: body.preferredMode,
+//       cgpa: body.cgpa,
+//       cvUrl: files.cv ? files.cv[0].path : null,
+//       researchSampleUrl: files.researchSample ? files.researchSample[0].path : null,
+//       marksSheetUrl: files.marksSheet ? files.marksSheet[0].path : null,
+//       draftSampleUrl: files.draftSample ? files.draftSample[0].path : null,
+//     });
+
+//     const savedApplication = await newApplication.save();
+//     console.log("New career application:", savedApplication);
+
+//     res.status(201).json({ message: "Application submitted successfully", data: savedApplication });
+    
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ message: "Server error", error: err.message });
+//   }
+// });
+
+
+// //API-3
+// app.get("/file", (req, res) => {
+//   const fileName = req.query.name;
+//   if (!fileName) return res.status(400).send("File name is required");
+
+//   const filePath = path.join(__dirname, "uploads", fileName);
+//   res.sendFile(filePath, (err) => {
+//     if (err) res.status(404).send("File not found");
+//   });
+// });
+
+
+// // ----------------------
+// app.listen(5000, () => console.log("Server running on port 5000"));
+
+
+
+
+
+
+
+
 
 
 
@@ -140,56 +154,86 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
+const { Parser } = require("json2csv");
 
-// Models
-const Form = require("./models/Form");
-const Application = require("./models/Application");
+const Form = require("./models/Form"); // old form
+const Application = require("./models/Application"); // careers form
 
-// Multer for file uploads
-const multer = require("multer");
-
-// Create uploads folder if it doesn't exist
-const uploadsDir = path.join(__dirname, "uploads");
-if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir);
-
-// Express app
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Serve uploaded CVs
-app.use("/uploads", express.static(uploadsDir));
+// ----------------------
+// SERVE INTERNSHIPS FOLDER
+// ----------------------
+app.use("/internships", express.static(path.join(__dirname, "internships"))); 
+// Files can now be accessed at: http://localhost:5000/internships/<filename>
 
-/* ----------------- MONGODB CONNECTIONS ----------------- */
+// ----------------------
+// MONGODB CONNECTIONS
+// ----------------------
+const mongoURLForm = "mongodb+srv://praneethkollipara7:Issues@clientissues.fr33uzy.mongodb.net/";
+const mongoURLCareer = "mongodb+srv://praneethkollipara7:Internships@internsapplied.uuokqhr.mongodb.net/";
 
-// Cluster 1: Form DB
-const cluster1URL = "mongodb+srv://praneethkollipara7:Issues@clientissues.fr33uzy.mongodb.net/myDatabase?retryWrites=true&w=majority";
-const cluster1Connection = mongoose.createConnection(cluster1URL, {
+// Old Form DB
+const formConnection = mongoose.createConnection(mongoURLForm, {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
 });
-cluster1Connection.once("open", () => console.log("Connected to Cluster 1 (Form DB)"));
-cluster1Connection.on("error", (err) => console.log("Cluster 1 error:", err));
+const FormModel = formConnection.model("Form", Form.schema);
 
-// Cluster 2: Applications DB
-const cluster2URL = "mongodb+srv://praneethkollipara7:Interns@internsapplied.uuokqhr.mongodb.net/myDatabase?retryWrites=true&w=majority";
-const cluster2Connection = mongoose.createConnection(cluster2URL, {
+// Careers Form DB
+const careerConnection = mongoose.createConnection(mongoURLCareer, {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
 });
-cluster2Connection.once("open", () => console.log("Connected to Cluster 2 (Applications DB)"));
-cluster2Connection.on("error", (err) => console.log("Cluster 2 error:", err));
+const ApplicationModel = careerConnection.model("Application", Application.schema);
 
-/* ----------------- /form API ----------------- */
-const FormModel = cluster1Connection.model("Form", Form.schema);
+// ----------------------
+// MULTER CONFIG (careers)
+// ----------------------
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const dir = path.join(__dirname, "internships");
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir); // auto-create folder if not exists
+    cb(null, dir);
+  },
+  filename: (req, file, cb) => {
+    // store with timestamp + original name
+    cb(null, Date.now() + "-" + file.originalname);
+  },
+});
+const upload = multer({ storage });
 
+// ----------------------
+// ROUTE 1: Old Form + CSV
+// ----------------------
 app.post("/form", async (req, res) => {
   try {
     const { name, phone, email, query, dispute, freetime } = req.body;
-    const newForm = new FormModel({ name, phone, email, query, dispute, freetime, time: new Date() });
+    const time = new Date();
+
+    const newForm = new FormModel({ name, phone, email, query, dispute, freetime, time });
     const savedForm = await newForm.save();
+
+    console.log("New form:", savedForm);
+
+    // ----------------------
+    // CSV LOGIC (clientquery folder)
+    // ----------------------
+    const clientQueryDir = path.join(__dirname, "clientquery");
+    if (!fs.existsSync(clientQueryDir)) fs.mkdirSync(clientQueryDir);
+
+    const csvFile = path.join(clientQueryDir, "forms.csv");
+    const fields = ["name", "phone", "email", "query", "dispute", "freetime", "time"];
+    const parser = new Parser({ fields, header: !fs.existsSync(csvFile) });
+    const csv = parser.parse([savedForm.toObject()]);
+
+    fs.appendFileSync(csvFile, csv + "\n");
+
     res.status(201).json({ message: "Form submitted successfully", data: savedForm });
   } catch (err) {
     console.error(err);
@@ -197,46 +241,64 @@ app.post("/form", async (req, res) => {
   }
 });
 
-/* ----------------- /career API ----------------- */
-const ApplicationModel = cluster2Connection.model("Application", Application.schema);
+// ----------------------
+// ROUTE 2: Careers Form
+// ----------------------
+const cpUpload = upload.fields([
+  { name: "cv", maxCount: 1 },
+  { name: "researchSample", maxCount: 1 },
+  { name: "marksSheet", maxCount: 1 },
+  { name: "draftSample", maxCount: 1 },
+]);
 
-// Multer storage
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, uploadsDir),
-  filename: (req, file, cb) => {
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(null, uniqueSuffix + path.extname(file.originalname));
-  }
-});
-const upload = multer({ storage });
-
-app.post("/career", upload.single("cv"), async (req, res) => {
+app.post("/career", cpUpload, async (req, res) => {
   try {
-    console.log("req.body:", req.body);
-    console.log("req.file:", req.file);
+    const body = req.body;
+    const files = req.files;
 
-    if (!req.file) return res.status(400).json({ message: "CV file is required" });
+    const getFileUrl = (fileArray) => fileArray ? `http://localhost:5000/internships/${fileArray[0].filename}` : null;
 
     const newApplication = new ApplicationModel({
-      fullName: req.body.fullName,
-      email: req.body.email,
-      phoneNumber: req.body.phoneNumber,
-      residentialAddress: req.body.residentialAddress,
-      college: req.body.college,
-      course: req.body.course,
-      yearOfStudy: req.body.yearOfStudy,
-      coverLetter: req.body.coverLetter,
-      cvUrl: `/uploads/${req.file.filename}`,
-      time: new Date()
+      fullName: body.fullName,
+      email: body.email,
+      phoneNumber: body.phoneNumber,
+      residentialAddress: body.residentialAddress,
+      college: body.college,
+      course: body.course,
+      yearOfStudy: body.yearOfStudy,
+      coverLetter: body.coverLetter,
+      disputeType: body.disputeType,
+      preferredMode: body.preferredMode,
+      cgpa: body.cgpa,
+      cvUrl: getFileUrl(files.cv),
+      researchSampleUrl: getFileUrl(files.researchSample),
+      marksSheetUrl: getFileUrl(files.marksSheet),
+      draftSampleUrl: getFileUrl(files.draftSample),
     });
 
     const savedApplication = await newApplication.save();
+    console.log("New career application:", savedApplication);
+
     res.status(201).json({ message: "Application submitted successfully", data: savedApplication });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Error submitting application", error: error.message });
+    
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error", error: err.message });
   }
 });
 
-/* ----------------- START SERVER ----------------- */
+// ----------------------
+// API-3: View File from internships
+// ----------------------
+app.get("/file", (req, res) => {
+  const fileName = req.query.name;
+  if (!fileName) return res.status(400).send("File name is required");
+
+  const filePath = path.join(__dirname, "internships", fileName);
+  res.sendFile(filePath, (err) => {
+    if (err) res.status(404).send("File not found");
+  });
+});
+
+// ----------------------
 app.listen(5000, () => console.log("Server running on port 5000"));
