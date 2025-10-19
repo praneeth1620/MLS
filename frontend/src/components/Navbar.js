@@ -51,7 +51,7 @@ const Navbar = () => {
           </a>
 
           <div className="navbar-menu">
-            <a href="#about">About Us</a>
+            <Link to="/legacy">Legacy</Link>
             <a href="#practice">Practice Areas</a>
             <a href="#people">Our People</a>
             <Link to="/careers">Careers</Link>

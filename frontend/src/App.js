@@ -72,6 +72,7 @@ import Blogs from "./components/Blogs";
 import Newsletters from "./components/Newsletters";
 import Publications from "./components/Publications";
 import Events from "./components/Events";
+import Legacy from "./components/Legacy";
 
 // ✅ Scroll to top on every route change
 const ScrollToTop = () => {
@@ -110,6 +111,7 @@ function App() {
         />
 
         {/* ✅ Separate pages */}
+        <Route path="/legacy" element={<Legacy/>}/>
         <Route path="/careers" element={<Careers />} />
         <Route path="/blogs" element={<Blogs />} />
         <Route path="/newsletters" element={<Newsletters />} />

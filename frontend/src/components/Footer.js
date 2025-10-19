@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from 'react-router-dom'
 import { Facebook, Twitter, Linkedin, MapPin, Phone, Mail } from "lucide-react";
 import final_map from "../final_map.png"
 import "../styles/Footer.css";
@@ -11,8 +12,7 @@ const Footer = () => {
           <div className="footer-section">
             <h3>MLS&Co</h3>
             <p>
-              A legacy of legal excellence since 1896. We provide comprehensive
-              legal solutions with integrity and a commitment to success.
+              "Delivering comprehensive legal solutions with integrity, expertise, and a commitment to your success."
             </p>
             <div className="footer-social">
               <Facebook className="footer-social-icon" />
@@ -22,58 +22,43 @@ const Footer = () => {
           </div>
           <div className="footer-section abbrcard">
             <h4 className="abbr">
-              <span className="M">M</span>ahdsbjfb
+              <span className="M">M</span>antle
             </h4>
             <ul className="footer-links">
               <li>
                 <a href="#firm">Our Firm</a>
               </li>
               <li>
-                <a href="#legacy">Our Legacy</a>
-              </li>
-              <li>
                 <a href="#people">Our People</a>
               </li>
               <li>
-                <a href="#awards">Awards</a>
+                <a href="#awards">Testimonials</a>
               </li>
             </ul>
           </div>
           <div className="footer-section abbrcard">
             <h4 className="abbr">
-              <span className="M">L</span>qwerty
+              <span className="M">L</span>egacy
             </h4>
             <ul className="footer-links">
               <li>
-                <a href="#corporate">Corporate</a>
-              </li>
-              <li>
-                <a href="#dispute">Dispute Resolution</a>
-              </li>
-              <li>
-                <a href="#ip">Intellectual Property</a>
-              </li>
-              <li>
-                <a href="#realestate">Real Estate</a>
+                <a href="#practice">Practice Areas</a>
               </li>
             </ul>
           </div>
           <div className="footer-section abbrcard">
             <h4 className="abbr">
-              <span className="M">S</span>qwerty
+              <span className="M">S</span>cholarly
             </h4>
             <ul className="footer-links">
               <li>
-                <a href="#articles">Articles</a>
+                <Link to="/blogs">Blogs</Link>
               </li>
               <li>
-                <a href="#newsletters">Newsletters</a>
+                <Link to="/publications">Publications</Link>
               </li>
               <li>
-                <a href="#publications">Publications</a>
-              </li>
-              <li>
-                <a href="#events">Events</a>
+                <Link to="/events">Events</Link>
               </li>
             </ul>
           </div>
@@ -96,7 +81,7 @@ const Footer = () => {
               </div>
               <div className="footer-contact-item">
                 <Mail size={20} className="footer-contact-icon" />
-                <span>abcd@gmail.com</span>
+                <span>mlslaw.contact@gmail.com</span>
               </div>
             </div>
             <div className="map-image">
